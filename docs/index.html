@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sales Ops Assistant · 区域销售 AI 助手</title><style>
+:root { --text:#0f172a; --muted:#64748b; --border:#e2e8f0; --accent:#2563eb; --bg:#f8fafc; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); }
+.wrap { max-width:1120px; margin:0 auto; padding:30px 22px 48px; }
+h1 { margin:0 0 6px; font-size:1.55rem; } h2 { font-size:1.02rem; margin:30px 0 12px; }
+.meta { color:var(--muted); font-size:0.86rem; line-height:1.7; }
+.badge { display:inline-block; margin-left:8px; padding:1px 8px; border-radius:999px; background:#fef3c7; color:#92400e; font-size:0.74rem; }
+.grid { display:grid; gap:14px; } .g4 { grid-template-columns:repeat(4,1fr); } .g2 { grid-template-columns:1fr 1fr; } .g3 { grid-template-columns:repeat(3,1fr); }
+@media (max-width:860px) { .g4,.g2,.g3 { grid-template-columns:1fr; } }
+.card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px; }
+.kpi .label { color:var(--muted); font-size:0.78rem; } .kpi .value { font-size:1.45rem; font-weight:700; margin-top:4px; } .kpi .sub { color:var(--muted); font-size:0.76rem; margin-top:3px; }
+.pipe { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.pipe div { flex:1; min-width:120px; background:#fff; border:1px solid var(--border); border-radius:10px; padding:10px; font-size:0.78rem; }
+.pipe b { display:block; font-size:0.84rem; margin-bottom:2px; color:#1e3a8a; }
+.layer { font-size:0.8rem; line-height:1.7; } .layer b { color:#1e3a8a; }
+.sc { display:grid; grid-template-columns:200px 1fr; gap:14px; }
+@media (max-width:860px) { .sc { grid-template-columns:1fr; } }
+.sc h3 { margin:0 0 4px; font-size:0.92rem; } .trigger { font-size:0.78rem; color:#334155; background:#f1f5f9; border-radius:8px; padding:6px 8px; margin-top:8px; }
+.guard { display:inline-block; font-size:0.72rem; padding:1px 7px; border-radius:6px; background:#eff6ff; color:#1d4ed8; }
+.st { display:inline-block; font-size:0.74rem; font-weight:700; padding:2px 8px; border-radius:6px; margin-top:8px; }
+.st-sent { background:#dcfce7; color:#166534; } .st-partial { background:#fef9c3; color:#854d0e; }
+.st-skipped, .st-refused { background:#f1f5f9; color:#475569; }
+.st-blocked, .st-failed { background:#fee2e2; color:#991b1b; } .st-pending_approval { background:#fef3c7; color:#92400e; }
+.steps { list-style:none; margin:0; padding:0; font-size:0.78rem; }
+.steps li { display:grid; grid-template-columns:96px 70px 1fr; gap:8px; padding:4px 0; border-bottom:1px dashed var(--border); }
+.steps li:last-child { border-bottom:none; }
+.s-ok, .s-auto, .s-approved { color:#047857; } .s-error, .s-fail, .s-stop, .s-abandon { color:#b91c1c; } .s-skip, .s-wait, .s-pending { color:#b45309; }
+code { font-size:0.74rem; background:#f1f5f9; padding:1px 4px; border-radius:4px; }
+pre { background:#0f172a; color:#e2e8f0; padding:12px; border-radius:8px; font-size:0.74rem; overflow:auto; margin:0; white-space:pre-wrap; }
+table { width:100%; border-collapse:collapse; font-size:0.76rem; }
+th, td { text-align:left; padding:5px 6px; border-bottom:1px solid var(--border); }
+th { color:var(--muted); font-weight:600; }
+.muted { color:var(--muted); font-size:0.78rem; line-height:1.6; }
+footer { margin-top:36px; color:var(--muted); font-size:0.78rem; }
+</style></head>
+<body><div class="wrap">
+  <h1>Sales Ops Assistant · 区域销售 AI 助手</h1>
+  <div class="meta">一句话提需求 → 拆成确定性步骤 → 程序算数 → 健康检查 → 预览确认 → 固定顺序发送 → message_id 留痕
+    <span class="badge">虚构门店与群组，模拟数据</span></div>
+
+  <div class="pipe">
+    <div><b>1 数据刷新</b>多源抓取，偶发失败完整重跑一次</div>
+    <div><b>2 计算渲染</b>达成率、排名由程序计算，不交给模型</div>
+    <div><b>3 健康检查</b>覆盖率 · 新鲜度 · 数值合理</div>
+    <div><b>4 预览确认</b>首次运行或群发超过 2 个群需确认</div>
+    <div><b>5 发送留痕</b>白名单 · 禁言群跳过 · message_id</div>
+  </div>
+
+  <div class="grid g4" style="margin-top:16px">
+    <div class="card kpi"><div class="label">回放场景</div><div class="value">10 个</div><div class="sub">模拟一个工作日（2026-10-12）</div></div>
+    <div class="card kpi"><div class="label">成功送达</div><div class="value">7 条消息</div><div class="sub">3 次运行全部送达</div></div>
+    <div class="card kpi"><div class="label">被护栏拦下</div><div class="value">7 次</div><div class="sub">跳过 1 · 拦截 3 · 失败 1 · 拒绝 1 · 待确认 1</div></div>
+    <div class="card kpi"><div class="label">错发 / 重复发送</div><div class="value">0 / 0</div><div class="sub">按 outbox 实际发送记录核对 · 发送窗口 08:30–21:00</div></div>
+  </div>
+
+  <h2>一句话 → 执行计划</h2>
+  <div class="grid g2">
+    <div class="card"><div class="muted">用户输入</div><div style="margin:4px 0 10px">「把今天华东华南各门店的达成进度做成卡片发到群里」</div>
+      <table><tbody>
+        <tr><th>识别任务</th><td>门店达成度播报（<code>attainment</code>）</td></tr>
+        <tr><th>区域</th><td>华东、华南</td></tr>
+        <tr><th>产出</th><td>卡片 / 图 + 发送</td></tr>
+        <tr><th>步骤</th><td>refresh → compute → render → health_check → preview → send</td></tr>
+      </tbody></table></div>
+    <div class="card"><div class="muted" style="margin-bottom:6px">发送内容（场景 3）</div><pre>【门店达成度播报】10-12 09:03
+整体达成 756/892（85%）
+TOP3：上海徐汇 122%、东莞南城 120%、南京新街口 119%
+需关注：宁波鄞州 53%、厦门思明 53%、合肥政务 46%</pre>
+      <table style="margin-top:10px"><thead><tr><th>群（固定顺序）</th><th>message_id</th></tr></thead><tbody><tr><td>区域管理层群</td><td><code>om_9677294ca0bf</code></td></tr><tr><td>华东区域经营群</td><td><code>om_1a6881eb4776</code></td></tr><tr><td>华南区域经营群</td><td><code>om_bf572b9c70fc</code></td></tr></tbody></table></div>
+  </div>
+
+  <h2>场景回放</h2>
+  <div class="grid"><div class="card sc">
+      <div><span class="guard">时间护栏</span><h3 style="margin-top:6px">1. 太早，不打扰</h3>
+        <div class="trigger">定时任务 · 门店达成度播报 · 08:05</div>
+        <div class="st st-blocked">已拦截</div></div>
+      <div><ul class="steps"><li><span>时间护栏</span><span class='s-stop'>stop</span><span>08:05 不在 08:30–21:00 发送窗口内</span></li></ul><div class="muted" style="margin-top:6px">结果：时间护栏：非工作时段不打扰</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">预览确认</span><h3 style="margin-top:6px">2. 首次运行，先预览</h3>
+        <div class="trigger">把今天华东华南各门店的达成进度做成卡片发到群里</div>
+        <div class="st st-pending_approval">待确认</div></div>
+      <div><ul class="steps"><li><span>数据刷新</span><span class='s-ok'>ok</span><span>第 1 次刷新，15 行</span></li><li><span>健康检查</span><span class='s-ok'>ok</span><span>字段完整、数值合理、数据新鲜</span></li><li><span>渲染</span><span class='s-ok'>ok</span><span>15 家门店</span></li><li><span>收件人</span><span class='s-skip'>skip</span><span>「上海城市群」是禁言群，自动跳过</span></li><li><span>收件人</span><span class='s-skip'>skip</span><span>「外部合作方群」含外部成员，禁止发送</span></li><li><span>预览确认</span><span class='s-pending'>pending</span><span>待负责人确认，拟发 3 个群：区域管理层群、华东区域经营群、华南区域经营群</span></li></ul><div class="muted" style="margin-top:6px">结果：预览已生成，等待负责人确认</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">固定收件人 · 禁言群跳过</span><h3 style="margin-top:6px">3. 负责人确认后发送</h3>
+        <div class="trigger">把今天华东华南各门店的达成进度做成卡片发到群里</div>
+        <div class="st st-sent">已发送</div></div>
+      <div><ul class="steps"><li><span>数据刷新</span><span class='s-ok'>ok</span><span>第 1 次刷新，15 行</span></li><li><span>健康检查</span><span class='s-ok'>ok</span><span>字段完整、数值合理、数据新鲜</span></li><li><span>渲染</span><span class='s-ok'>ok</span><span>15 家门店</span></li><li><span>收件人</span><span class='s-skip'>skip</span><span>「上海城市群」是禁言群，自动跳过</span></li><li><span>收件人</span><span class='s-skip'>skip</span><span>「外部合作方群」含外部成员，禁止发送</span></li><li><span>预览确认</span><span class='s-approved'>approved</span><span>确认人：区域负责人</span></li><li><span>发送</span><span class='s-ok'>ok</span><span>区域管理层群 · om_9677294ca0bf</span></li><li><span>发送</span><span class='s-ok'>ok</span><span>华东区域经营群 · om_1a6881eb4776</span></li><li><span>发送</span><span class='s-ok'>ok</span><span>华南区域经营群 · om_bf572b9c70fc</span></li></ul><div class="muted" style="margin-top:6px">结果：按固定顺序送达 3 个群</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">幂等锁</span><h3 style="margin-top:6px">4. 调度器重复触发</h3>
+        <div class="trigger">定时任务 · 门店达成度播报 · 09:10</div>
+        <div class="st st-skipped">跳过</div></div>
+      <div><ul class="steps"><li><span>幂等锁</span><span class='s-skip'>skip</span><span>同一时段已执行过（attainment:2026-10-12:AM）</span></li></ul><div class="muted" style="margin-top:6px">结果：幂等锁：本时段已发送，不重复执行</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">失败重试</span><h3 style="margin-top:6px">5. 数据源偶发超时</h3>
+        <div class="trigger">定时任务 · 现车库存播报 · 10:00</div>
+        <div class="st st-sent">已发送</div></div>
+      <div><ul class="steps"><li><span>数据刷新</span><span class='s-error'>error</span><span>第 1 次：库存表格读取失败</span></li><li><span>重试</span><span class='s-wait'>wait</span><span>等待 30 秒后完整重跑</span></li><li><span>数据刷新</span><span class='s-ok'>ok</span><span>第 2 次刷新，45 行</span></li><li><span>健康检查</span><span class='s-ok'>ok</span><span>字段完整、数值合理、数据新鲜</span></li><li><span>渲染</span><span class='s-ok'>ok</span><span>15 家门店</span></li><li><span>预览确认</span><span class='s-approved'>approved</span><span>确认人：区域负责人</span></li><li><span>发送</span><span class='s-ok'>ok</span><span>华东区域经营群 · om_b492d04a84fa</span></li><li><span>发送</span><span class='s-ok'>ok</span><span>华南区域经营群 · om_0ec2a2a3205a</span></li></ul><div class="muted" style="margin-top:6px">结果：按固定顺序送达 2 个群</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">健康检查</span><h3 style="margin-top:6px">6. 数据异常，拦下</h3>
+        <div class="trigger">定时任务 · 门店达成度播报 · 14:00</div>
+        <div class="st st-blocked">已拦截</div></div>
+      <div><ul class="steps"><li><span>数据刷新</span><span class='s-ok'>ok</span><span>第 1 次刷新，15 行</span></li><li><span>健康检查</span><span class='s-fail'>fail</span><span>深圳南山 达成率 900%，疑似重复计数</span></li></ul><div class="muted" style="margin-top:6px">结果：健康检查未通过：深圳南山 达成率 900%，疑似重复计数</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">健康检查</span><h3 style="margin-top:6px">7. 门店数据缺失，拦下</h3>
+        <div class="trigger">定时任务 · 门店达成度播报 · 14:20</div>
+        <div class="st st-blocked">已拦截</div></div>
+      <div><ul class="steps"><li><span>数据刷新</span><span class='s-ok'>ok</span><span>第 1 次刷新，13 行</span></li><li><span>健康检查</span><span class='s-fail'>fail</span><span>门店覆盖率 87%，低于 95%</span></li></ul><div class="muted" style="margin-top:6px">结果：健康检查未通过：门店覆盖率 87%，低于 95%</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">发送重试 · message_id 留痕</span><h3 style="margin-top:6px">8. 发送通道限流</h3>
+        <div class="trigger">定时任务 · 现车库存播报 · 16:00</div>
+        <div class="st st-sent">已发送</div></div>
+      <div><ul class="steps"><li><span>数据刷新</span><span class='s-ok'>ok</span><span>第 1 次刷新，45 行</span></li><li><span>健康检查</span><span class='s-ok'>ok</span><span>字段完整、数值合理、数据新鲜</span></li><li><span>渲染</span><span class='s-ok'>ok</span><span>15 家门店</span></li><li><span>预览确认</span><span class='s-auto'>auto</span><span>常规任务，免确认</span></li><li><span>发送</span><span class='s-error'>error</span><span>发送到「华东区域经营群」失败：通道限流</span></li><li><span>发送</span><span class='s-ok'>ok</span><span>华东区域经营群 · om_39f9e30ed69f</span></li><li><span>发送</span><span class='s-ok'>ok</span><span>华南区域经营群 · om_aaabb13b17e0</span></li></ul><div class="muted" style="margin-top:6px">结果：按固定顺序送达 2 个群</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">重跑一次后放弃</span><h3 style="margin-top:6px">9. 数据源持续失败</h3>
+        <div class="trigger">定时任务 · 门店达成度播报 · 18:00</div>
+        <div class="st st-failed">失败未发送</div></div>
+      <div><ul class="steps"><li><span>数据刷新</span><span class='s-error'>error</span><span>第 1 次：订单系统接口超时</span></li><li><span>重试</span><span class='s-wait'>wait</span><span>等待 30 秒后完整重跑</span></li><li><span>数据刷新</span><span class='s-error'>error</span><span>第 2 次：订单系统接口超时</span></li></ul><div class="muted" style="margin-top:6px">结果：重试 1 次后仍失败，已通知负责人，未发送任何内容</div></div>
+    </div><div class="card sc">
+      <div><span class="guard">收件人白名单</span><h3 style="margin-top:6px">10. 越权请求</h3>
+        <div class="trigger">把华东库存发到所有群</div>
+        <div class="st st-refused">拒绝执行</div></div>
+      <div><ul class="steps"><li><span>意图识别</span><span class='s-stop'>refuse</span><span>识别为「inventory」，但请求越出了任务配置</span></li></ul><div class="muted" style="margin-top:6px">结果：不支持发到「所有群」，只能发到任务配置里的固定收件人</div></div>
+    </div></div>
+
+  <h2>审计日志（节选，完整版见 docs/audit.jsonl）</h2>
+  <div class="card"><table><thead><tr><th>时间</th><th>run_id</th><th>步骤</th><th>状态</th><th>详情</th></tr></thead><tbody><tr><td>08:05</td><td><code>attainment-20261012080500</code></td><td>时间护栏</td><td class='s-stop'>stop</td><td>08:05 不在 08:30–21:00 发送窗口内</td></tr><tr><td>08:05</td><td><code>attainment-20261012080500</code></td><td>结束</td><td class='s-blocked'>blocked</td><td>时间护栏：非工作时段不打扰</td></tr><tr><td>09:00</td><td><code>attainment-20261012090000</code></td><td>健康检查</td><td class='s-ok'>ok</td><td>字段完整、数值合理、数据新鲜</td></tr><tr><td>09:00</td><td><code>attainment-20261012090000</code></td><td>结束</td><td class='s-pending_approval'>pending_approval</td><td>预览已生成，等待负责人确认</td></tr><tr><td>09:03</td><td><code>attainment-20261012090300</code></td><td>健康检查</td><td class='s-ok'>ok</td><td>字段完整、数值合理、数据新鲜</td></tr><tr><td>09:03</td><td><code>attainment-20261012090300</code></td><td>发送</td><td class='s-ok'>ok</td><td>区域管理层群 · om_9677294ca0bf</td></tr><tr><td>09:03</td><td><code>attainment-20261012090300</code></td><td>发送</td><td class='s-ok'>ok</td><td>华东区域经营群 · om_1a6881eb4776</td></tr><tr><td>09:03</td><td><code>attainment-20261012090300</code></td><td>发送</td><td class='s-ok'>ok</td><td>华南区域经营群 · om_bf572b9c70fc</td></tr><tr><td>09:03</td><td><code>attainment-20261012090300</code></td><td>结束</td><td class='s-sent'>sent</td><td>按固定顺序送达 3 个群</td></tr><tr><td>09:10</td><td><code>attainment-20261012091000</code></td><td>幂等锁</td><td class='s-skip'>skip</td><td>同一时段已执行过（attainment:2026-10-12:AM）</td></tr><tr><td>09:10</td><td><code>attainment-20261012091000</code></td><td>结束</td><td class='s-skipped'>skipped</td><td>幂等锁：本时段已发送，不重复执行</td></tr><tr><td>10:00</td><td><code>inventory-20261012100000</code></td><td>健康检查</td><td class='s-ok'>ok</td><td>字段完整、数值合理、数据新鲜</td></tr><tr><td>10:00</td><td><code>inventory-20261012100000</code></td><td>发送</td><td class='s-ok'>ok</td><td>华东区域经营群 · om_b492d04a84fa</td></tr><tr><td>10:00</td><td><code>inventory-20261012100000</code></td><td>发送</td><td class='s-ok'>ok</td><td>华南区域经营群 · om_0ec2a2a3205a</td></tr><tr><td>10:00</td><td><code>inventory-20261012100000</code></td><td>结束</td><td class='s-sent'>sent</td><td>按固定顺序送达 2 个群</td></tr><tr><td>14:00</td><td><code>attainment-20261012140000</code></td><td>健康检查</td><td class='s-fail'>fail</td><td>深圳南山 达成率 900%，疑似重复计数</td></tr><tr><td>14:00</td><td><code>attainment-20261012140000</code></td><td>结束</td><td class='s-blocked'>blocked</td><td>健康检查未通过：深圳南山 达成率 900%，疑似重复计数</td></tr><tr><td>14:20</td><td><code>attainment-20261012142000</code></td><td>健康检查</td><td class='s-fail'>fail</td><td>门店覆盖率 87%，低于 95%</td></tr><tr><td>14:20</td><td><code>attainment-20261012142000</code></td><td>结束</td><td class='s-blocked'>blocked</td><td>健康检查未通过：门店覆盖率 87%，低于 95%</td></tr><tr><td>16:00</td><td><code>inventory-20261012160000</code></td><td>健康检查</td><td class='s-ok'>ok</td><td>字段完整、数值合理、数据新鲜</td></tr><tr><td>16:00</td><td><code>inventory-20261012160000</code></td><td>发送</td><td class='s-error'>error</td><td>发送到「华东区域经营群」失败：通道限流</td></tr><tr><td>16:00</td><td><code>inventory-20261012160000</code></td><td>发送</td><td class='s-ok'>ok</td><td>华东区域经营群 · om_39f9e30ed69f</td></tr><tr><td>16:00</td><td><code>inventory-20261012160000</code></td><td>发送</td><td class='s-ok'>ok</td><td>华南区域经营群 · om_aaabb13b17e0</td></tr><tr><td>16:00</td><td><code>inventory-20261012160000</code></td><td>结束</td><td class='s-sent'>sent</td><td>按固定顺序送达 2 个群</td></tr><tr><td>18:00</td><td><code>attainment-20261012180000</code></td><td>结束</td><td class='s-failed'>failed</td><td>重试 1 次后仍失败，已通知负责人，未发送任何内容</td></tr></tbody></table></div>
+
+  <footer>由 run.py 生成 · 配置见 config/assistant.toml</footer>
+</div></body></html>

@@ -1,0 +1,62 @@
+# 区域销售 AI 助手配置（门店、群组均为虚构）
+
+[send_window]
+start = "08:30"
+end = "21:00"
+
+[retry]
+max_attempts = 2      # 首次 + 重跑一次
+wait_seconds = 30
+
+[health]
+max_attainment = 3.0  # 达成率超过 300% 视为数据异常
+max_staleness_hours = 6
+min_store_coverage = 0.95
+
+[approval]
+# 首次运行的任务、或一次发往超过 N 个群，需要负责人在预览后确认
+first_run = true
+max_groups_without_approval = 2
+
+[[groups]]
+id = "g-east"
+name = "华东区域经营群"
+region = "华东"
+
+[[groups]]
+id = "g-south"
+name = "华南区域经营群"
+region = "华南"
+
+[[groups]]
+id = "g-mgmt"
+name = "区域管理层群"
+region = "全部"
+
+[[groups]]
+id = "g-east-sh"
+name = "上海城市群"
+region = "华东"
+muted = true          # 全员禁言的通知群：自动跳过
+
+[[groups]]
+id = "g-partner"
+name = "外部合作方群"
+region = "全部"
+sensitive = true      # 含外部成员：任何任务都不得发送
+
+[tasks.attainment]
+name = "门店达成度播报"
+recipients = ["g-mgmt", "g-east", "g-south", "g-east-sh", "g-partner"]   # 固定顺序；g-partner 是误配，运行时会被拦下
+
+[tasks.inventory]
+name = "现车库存播报"
+recipients = ["g-east", "g-south"]
+
+[tasks.leaderboard]
+name = "顾问龙虎榜"
+recipients = ["g-east", "g-south"]
+
+[tasks.policy]
+name = "政策提醒"
+recipients = ["g-mgmt"]

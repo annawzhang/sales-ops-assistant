@@ -1,0 +1,48 @@
+{"run_id": "attainment-20261012080500", "time": "2026-10-12T08:05", "task": "attainment", "step": "window", "status": "stop", "detail": "08:05 不在 08:30–21:00 发送窗口内"}
+{"run_id": "attainment-20261012080500", "time": "2026-10-12T08:05", "task": "attainment", "step": "finish", "status": "blocked", "detail": "时间护栏：非工作时段不打扰"}
+{"run_id": "attainment-20261012090000", "time": "2026-10-12T09:00", "task": "attainment", "step": "refresh", "status": "ok", "detail": "第 1 次刷新，15 行"}
+{"run_id": "attainment-20261012090000", "time": "2026-10-12T09:00", "task": "attainment", "step": "health_check", "status": "ok", "detail": "字段完整、数值合理、数据新鲜"}
+{"run_id": "attainment-20261012090000", "time": "2026-10-12T09:00", "task": "attainment", "step": "render", "status": "ok", "detail": "15 家门店"}
+{"run_id": "attainment-20261012090000", "time": "2026-10-12T09:00", "task": "attainment", "step": "recipients", "status": "skip", "detail": "「上海城市群」是禁言群，自动跳过"}
+{"run_id": "attainment-20261012090000", "time": "2026-10-12T09:00", "task": "attainment", "step": "recipients", "status": "skip", "detail": "「外部合作方群」含外部成员，禁止发送"}
+{"run_id": "attainment-20261012090000", "time": "2026-10-12T09:00", "task": "attainment", "step": "preview", "status": "pending", "detail": "待负责人确认，拟发 3 个群：区域管理层群、华东区域经营群、华南区域经营群"}
+{"run_id": "attainment-20261012090000", "time": "2026-10-12T09:00", "task": "attainment", "step": "finish", "status": "pending_approval", "detail": "预览已生成，等待负责人确认"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "refresh", "status": "ok", "detail": "第 1 次刷新，15 行"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "health_check", "status": "ok", "detail": "字段完整、数值合理、数据新鲜"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "render", "status": "ok", "detail": "15 家门店"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "recipients", "status": "skip", "detail": "「上海城市群」是禁言群，自动跳过"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "recipients", "status": "skip", "detail": "「外部合作方群」含外部成员，禁止发送"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "preview", "status": "approved", "detail": "确认人：区域负责人"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "send", "status": "ok", "detail": "区域管理层群 · om_9677294ca0bf"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "send", "status": "ok", "detail": "华东区域经营群 · om_1a6881eb4776"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "send", "status": "ok", "detail": "华南区域经营群 · om_bf572b9c70fc"}
+{"run_id": "attainment-20261012090300", "time": "2026-10-12T09:03", "task": "attainment", "step": "finish", "status": "sent", "detail": "按固定顺序送达 3 个群"}
+{"run_id": "attainment-20261012091000", "time": "2026-10-12T09:10", "task": "attainment", "step": "lock", "status": "skip", "detail": "同一时段已执行过（attainment:2026-10-12:AM）"}
+{"run_id": "attainment-20261012091000", "time": "2026-10-12T09:10", "task": "attainment", "step": "finish", "status": "skipped", "detail": "幂等锁：本时段已发送，不重复执行"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "refresh", "status": "error", "detail": "第 1 次：库存表格读取失败"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "retry", "status": "wait", "detail": "等待 30 秒后完整重跑"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "refresh", "status": "ok", "detail": "第 2 次刷新，45 行"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "health_check", "status": "ok", "detail": "字段完整、数值合理、数据新鲜"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "render", "status": "ok", "detail": "15 家门店"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "preview", "status": "approved", "detail": "确认人：区域负责人"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "send", "status": "ok", "detail": "华东区域经营群 · om_b492d04a84fa"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "send", "status": "ok", "detail": "华南区域经营群 · om_0ec2a2a3205a"}
+{"run_id": "inventory-20261012100000", "time": "2026-10-12T10:00", "task": "inventory", "step": "finish", "status": "sent", "detail": "按固定顺序送达 2 个群"}
+{"run_id": "attainment-20261012140000", "time": "2026-10-12T14:00", "task": "attainment", "step": "refresh", "status": "ok", "detail": "第 1 次刷新，15 行"}
+{"run_id": "attainment-20261012140000", "time": "2026-10-12T14:00", "task": "attainment", "step": "health_check", "status": "fail", "detail": "深圳南山 达成率 900%，疑似重复计数"}
+{"run_id": "attainment-20261012140000", "time": "2026-10-12T14:00", "task": "attainment", "step": "finish", "status": "blocked", "detail": "健康检查未通过：深圳南山 达成率 900%，疑似重复计数"}
+{"run_id": "attainment-20261012142000", "time": "2026-10-12T14:20", "task": "attainment", "step": "refresh", "status": "ok", "detail": "第 1 次刷新，13 行"}
+{"run_id": "attainment-20261012142000", "time": "2026-10-12T14:20", "task": "attainment", "step": "health_check", "status": "fail", "detail": "门店覆盖率 87%，低于 95%"}
+{"run_id": "attainment-20261012142000", "time": "2026-10-12T14:20", "task": "attainment", "step": "finish", "status": "blocked", "detail": "健康检查未通过：门店覆盖率 87%，低于 95%"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "refresh", "status": "ok", "detail": "第 1 次刷新，45 行"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "health_check", "status": "ok", "detail": "字段完整、数值合理、数据新鲜"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "render", "status": "ok", "detail": "15 家门店"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "preview", "status": "auto", "detail": "常规任务，免确认"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "send", "status": "error", "detail": "发送到「华东区域经营群」失败：通道限流"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "send", "status": "ok", "detail": "华东区域经营群 · om_39f9e30ed69f"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "send", "status": "ok", "detail": "华南区域经营群 · om_aaabb13b17e0"}
+{"run_id": "inventory-20261012160000", "time": "2026-10-12T16:00", "task": "inventory", "step": "finish", "status": "sent", "detail": "按固定顺序送达 2 个群"}
+{"run_id": "attainment-20261012180000", "time": "2026-10-12T18:00", "task": "attainment", "step": "refresh", "status": "error", "detail": "第 1 次：订单系统接口超时"}
+{"run_id": "attainment-20261012180000", "time": "2026-10-12T18:00", "task": "attainment", "step": "retry", "status": "wait", "detail": "等待 30 秒后完整重跑"}
+{"run_id": "attainment-20261012180000", "time": "2026-10-12T18:00", "task": "attainment", "step": "refresh", "status": "error", "detail": "第 2 次：订单系统接口超时"}
+{"run_id": "attainment-20261012180000", "time": "2026-10-12T18:00", "task": "attainment", "step": "finish", "status": "failed", "detail": "重试 1 次后仍失败，已通知负责人，未发送任何内容"}
