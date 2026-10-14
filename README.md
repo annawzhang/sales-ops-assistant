@@ -2,6 +2,11 @@
 
 **让 AI 助手往业务群里发数据之前，先回答五个问题：数据新不新、数字对不对、该不该现在发、该发给谁、发错了能不能查。**
 
+
+> **Copyright © 2026 张文婧 (Anna Zhang)** · [MIT License](./LICENSE) · [github.com/annawzhang](https://github.com/annawzhang)  
+> 欢迎学习与面试查阅；保留版权与许可声明。**禁止删除作者信息后冒充本人作品二次发表。** 公开内容为虚构/脱敏演示数据。
+
+
 [场景回放](https://annawzhang.github.io/sales-ops-assistant/) · 纯 Python 标准库，无第三方依赖
 
 区域销售每天要查数、做表、截图、发群。交给 AI 助手后，真正的风险不在「会不会写」，而在重复发送、发出残缺数据、

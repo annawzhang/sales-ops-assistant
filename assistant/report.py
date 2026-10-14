@@ -122,6 +122,6 @@ def render(scenarios, bot, cfg) -> str:
   <h2>审计日志（节选，完整版见 docs/audit.jsonl）</h2>
   <div class="card"><table><thead><tr><th>时间</th><th>run_id</th><th>步骤</th><th>状态</th><th>详情</th></tr></thead><tbody>{audit_rows}</tbody></table></div>
 
-  <footer>由 run.py 生成 · 配置见 config/assistant.toml</footer>
+  <footer>由 run.py 生成 · 配置见 config/assistant.toml · © 2026 张文婧 (Anna Zhang) · github.com/annawzhang · MIT · 保留署名</footer>
 </div></body></html>
 """
